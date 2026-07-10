@@ -6,6 +6,7 @@ const status = document.querySelector('#status');
 const repo = document.querySelector('#repo');
 const branch = document.querySelector('#branch');
 const token = document.querySelector('#token');
+let existingByUrl = new Map();
 
 function inferRepo() {
   const host = location.hostname;
@@ -19,11 +20,12 @@ function inferRepo() {
 async function loadExisting() {
   const response = await fetch('data/references.json', { cache: 'no-store' });
   const refs = await response.json();
+  existingByUrl = new Map(refs.map((ref) => [ref.url, ref]));
   links.value = refs.map((ref) => ref.url).join('\n');
   writeJson();
 }
 
-function getItems() {
+function uniqueUrls() {
   const seen = new Set();
   return links.value
     .split(/\n+/)
@@ -34,14 +36,36 @@ function getItems() {
       if (seen.has(url)) return false;
       seen.add(url);
       return true;
-    })
-    .map((url) => ({ url, tags: [parseReference(url).provider.toLowerCase()] }));
+    });
+}
+
+function itemForUrl(url) {
+  const parsed = parseReference(url);
+  const saved = existingByUrl.get(url) || {};
+  return {
+    url,
+    title: saved.title || parsed.title,
+    provider: saved.provider || parsed.provider,
+    type: saved.type || providerType(parsed.provider),
+    ...(saved.note ? { note: saved.note } : {}),
+  };
+}
+
+function providerType(provider) {
+  if (provider === 'Instagram') return 'Reel';
+  if (provider === 'The Ringer') return 'Article';
+  if (provider === 'Vimeo' || provider === 'YouTube') return 'Video';
+  return 'Reference';
+}
+
+function getItems() {
+  return uniqueUrls().map(itemForUrl);
 }
 
 function writeJson() {
   const items = getItems();
   json.value = `${JSON.stringify(items, null, 2)}\n`;
-  status.textContent = `${items.length} references ready.`;
+  status.textContent = `${items.length} references ready. Add titles/types in the JSON before committing if needed.`;
   return items;
 }
 
