@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Update Reference Deck</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./"><span class="brand-mark"></span><span>Reference Deck</span></a>
+      <nav class="nav"><a href="index.html">deck</a><a href="admin.html">paste/update</a></nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">paste links · publish to GitHub</p>
+          <h1>Update the wall without touching code.</h1>
+        </div>
+        <p class="hero-copy">Paste one URL per line. Preview the JSON, then either download it or commit directly to <code>data/references.json</code> with a GitHub fine-grained token.</p>
+      </section>
+
+      <section class="admin-layout">
+        <div class="panel">
+          <label>
+            <span>links</span>
+            <textarea id="links" spellcheck="false" placeholder="https://www.youtube.com/watch?v=..."></textarea>
+          </label>
+          <div class="actions">
+            <button id="preview" class="primary" type="button">Preview JSON</button>
+            <button id="download" type="button">Download references.json</button>
+          </div>
+          <p id="status" class="status" role="status"></p>
+          <label>
+            <span>generated JSON</span>
+            <textarea id="json" spellcheck="false"></textarea>
+          </label>
+        </div>
+
+        <aside class="panel help">
+          <h2>Direct GitHub update</h2>
+          <p>Create a fine-grained GitHub token with <strong>Contents: Read and write</strong> for this repo. It is only stored in your browser session.</p>
+          <label><span>owner/repo</span><input id="repo" placeholder="owner/repo" /></label>
+          <label><span>branch</span><input id="branch" value="main" /></label>
+          <label><span>token</span><input id="token" type="password" placeholder="github_pat_..." /></label>
+          <div class="actions"><button id="commit" class="primary" type="button">Commit to repo</button></div>
+          <p>Prefer local? Replace <code>data/references.json</code>, then run <code>git add data/references.json && git commit -m "Update references" && git push</code>.</p>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="admin.js"></script>
+  </body>
+</html>
