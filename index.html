@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A one-screen internal moving-image reference board." />
+    <title>Reference Deck</title>
+    <link rel="preconnect" href="https://www.youtube-nocookie.com" />
+    <link rel="preconnect" href="https://player.vimeo.com" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Reference Deck home"><span class="brand-mark"></span><span>Reference Deck</span></a>
+      <div class="header-tools">
+        <label class="search-wrap"><span>filter</span><input id="search" type="search" placeholder="title, provider, type…" autocomplete="off" /></label>
+        <a class="admin-link" href="admin.html">paste/update</a>
+      </div>
+    </header>
+
+    <main class="deck-shell">
+      <section id="grid" class="reference-grid" aria-live="polite"></section>
+      <p id="empty" class="empty" hidden>No matches.</p>
+    </main>
+
+    <template id="card-template">
+      <article class="card">
+        <a class="media" target="_blank" rel="noreferrer" aria-label="Open reference">
+          <iframe title="" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <div class="fallback"><span>open reference</span></div>
+        </a>
+        <div class="card-info">
+          <div class="card-meta"><span class="index"></span><span class="provider"></span></div>
+          <a class="card-title" target="_blank" rel="noreferrer"></a>
+          <p class="type"></p>
+          <p class="note"></p>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
