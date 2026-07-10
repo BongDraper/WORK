@@ -1,10 +1,11 @@
 const DATA_URL = 'data/references.json';
 const grid = document.querySelector('#grid');
 const template = document.querySelector('#card-template');
+const count = document.querySelector('#count');
 const search = document.querySelector('#search');
 const empty = document.querySelector('#empty');
 let references = [];
-const isBoardPage = Boolean(grid && template && search && empty);
+const isBoardPage = Boolean(grid && template && count && search && empty);
 
 export function parseReference(raw) {
   const url = normalizeUrl(typeof raw === 'string' ? raw : raw.url);
@@ -64,7 +65,6 @@ function render(list) {
     const title = node.querySelector('.card-title');
     title.href = ref.url;
     title.textContent = ref.title;
-    node.querySelector('.type').textContent = ref.type || '';
     node.querySelector('.note').textContent = ref.note;
     if (ref.embed) {
       iframe.src = ref.embed;
@@ -75,12 +75,13 @@ function render(list) {
     }
     grid.append(node);
   });
+  count.textContent = list.length;
   empty.hidden = list.length > 0;
 }
 
 function filter() {
   const term = search.value.trim().toLowerCase();
-  const list = references.filter((ref) => [ref.provider, ref.title, ref.type, ref.note].join(' ').toLowerCase().includes(term));
+  const list = references.filter((ref) => [ref.url, ref.provider, ref.title, ref.note].join(' ').toLowerCase().includes(term));
   render(list);
 }
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A one-screen internal moving-image reference board." />
+    <meta name="description" content="A minimal internal moving-image reference board." />
     <title>Reference Deck</title>
     <link rel="preconnect" href="https://www.youtube-nocookie.com" />
     <link rel="preconnect" href="https://player.vimeo.com" />
@@ -11,30 +11,54 @@
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="./" aria-label="Reference Deck home"><span class="brand-mark"></span><span>Reference Deck</span></a>
-      <div class="header-tools">
-        <label class="search-wrap"><span>filter</span><input id="search" type="search" placeholder="title, provider, type…" autocomplete="off" /></label>
-        <a class="admin-link" href="admin.html">paste/update</a>
-      </div>
+      <a class="brand" href="./" aria-label="Reference Deck home">
+        <span class="brand-mark"></span>
+        <span>Reference Deck</span>
+      </a>
+      <nav class="nav">
+        <a href="#grid">deck</a>
+        <a href="admin.html">paste/update</a>
+      </nav>
     </header>
 
-    <main class="deck-shell">
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">internal moodboard · click to play</p>
+          <h1 id="page-title">A clean wall for moving-image references.</h1>
+        </div>
+        <p class="hero-copy">Drop in YouTube, Vimeo, Instagram, or article links. The board turns them into cards your team can open from one GitHub Pages URL.</p>
+      </section>
+
+      <section class="toolbar" aria-label="Reference controls">
+        <label class="search-wrap">
+          <span>filter</span>
+          <input id="search" type="search" placeholder="provider, title, url…" autocomplete="off" />
+        </label>
+        <div class="stats"><span id="count">0</span> references</div>
+      </section>
+
       <section id="grid" class="reference-grid" aria-live="polite"></section>
-      <p id="empty" class="empty" hidden>No matches.</p>
+      <p id="empty" class="empty" hidden>No references match that filter.</p>
     </main>
+
+    <footer class="site-footer">
+      <span>Built for fast sharing.</span>
+      <a href="admin.html">Update the board</a>
+    </footer>
 
     <template id="card-template">
       <article class="card">
-        <a class="media" target="_blank" rel="noreferrer" aria-label="Open reference">
+        <a class="media" target="_blank" rel="noreferrer">
           <iframe title="" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          <div class="fallback"><span>open reference</span></div>
+          <div class="fallback"><span>open</span></div>
         </a>
-        <div class="card-info">
-          <div class="card-meta"><span class="index"></span><span class="provider"></span></div>
-          <a class="card-title" target="_blank" rel="noreferrer"></a>
-          <p class="type"></p>
-          <p class="note"></p>
+        <div class="card-meta">
+          <span class="index"></span>
+          <span class="provider"></span>
         </div>
+        <a class="card-title" target="_blank" rel="noreferrer"></a>
+        <p class="note"></p>
       </article>
     </template>
 
