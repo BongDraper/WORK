@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A one-screen internal moving-image reference board." />
+    <title>Reference Deck</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar" aria-label="Reference deck controls">
+      <a class="wordmark" href="./" aria-label="Reference Deck home"><span></span>REF.DECK</a>
+      <label class="filter"><span>filter</span><input id="search" type="search" placeholder="title / type / source" autocomplete="off" /></label>
+      <a class="edit-link" href="admin.html">update</a>
+    </header>
+
+    <main class="stage" aria-label="Reference board">
+      <section id="grid" class="reference-grid" aria-live="polite"></section>
+      <p id="empty" class="empty" hidden>No matches.</p>
+    </main>
+
+    <template id="card-template">
+      <article class="ref-card">
+        <a class="ref-link" target="_blank" rel="noreferrer">
+          <figure class="thumb-wrap">
+            <img class="thumb" alt="" loading="lazy" />
+            <span class="play">play</span>
+          </figure>
+          <div class="caption">
+            <div class="meta"><span class="index"></span><span class="provider"></span></div>
+            <h2 class="card-title"></h2>
+            <p class="type"></p>
+            <p class="note"></p>
+          </div>
+        </a>
+      </article>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
